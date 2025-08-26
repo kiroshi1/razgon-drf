@@ -4,20 +4,12 @@ from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import include, path
 
-from authentication.html_views import (
-    dashboard_view,
-    login_view,
-    logout_view,
-    profile_view,
-    register_view,
-)
+from authentication.html_views import dashboard_view, login_view, register_view
 
 
-# Redirect root to dashboard
+# Redirect root to dashboard (теперь проверка аутентификации происходит в JS)
 def root_redirect(request):
-    if request.user.is_authenticated:
-        return redirect("dashboard")
-    return redirect("login")
+    return redirect("dashboard")
 
 
 urlpatterns = [
@@ -27,8 +19,6 @@ urlpatterns = [
     path("login/", login_view, name="login"),
     path("register/", register_view, name="register"),
     path("dashboard/", dashboard_view, name="dashboard"),
-    path("profile/", profile_view, name="profile"),
-    path("logout/", logout_view, name="logout"),
     # API endpoints
     path("api/auth/", include("authentication.urls")),
     path("api/drf-auth/", include("rest_framework.urls")),  # DRF browsable API auth
