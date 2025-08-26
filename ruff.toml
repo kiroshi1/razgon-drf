@@ -1,0 +1,21 @@
+# ruff.toml
+target-version = "py312"
+line-length = 100
+
+select = ["E", "F", "B", "I", "UP", "Q"]
+ignore = [
+    "E501",  # длина строки (мы уже задаем через line-length)
+]
+
+[isort]
+known-first-party = ["core", "cars"]
+combine-as-imports = true
+
+[format]
+quote-style = "double"
+
+[flake8-quotes]
+inline-quotes = "double"
+multiline-quotes = "double"
+docstring-quotes = "double"
+avoid-escape = true

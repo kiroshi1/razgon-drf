@@ -1,0 +1,136 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Регистрация - Razgon{% endblock %}
+
+{% block body %}
+<div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="text-center">
+            <h2 class="text-3xl font-bold text-gray-900">🚗 Razgon</h2>
+            <h1 class="mt-6 text-2xl font-bold tracking-tight text-gray-900">
+                Создать аккаунт
+            </h1>
+            <p class="mt-2 text-sm text-gray-600">
+                Уже есть аккаунт? 
+                <a href="{% url 'login' %}" class="font-medium text-indigo-600 hover:text-indigo-500">
+                    Войти
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <!-- Сообщения об ошибках -->
+            <div id="error-messages"></div>
+            
+            <form id="register-form" 
+                  hx-post="{% url 'register' %}" 
+                  hx-target="#error-messages"
+                  hx-indicator="#register-loading"
+                  class="space-y-6">
+                {% csrf_token %}
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="first_name" class="block text-sm font-medium text-gray-700">
+                            Имя
+                        </label>
+                        <div class="mt-1">
+                            <input id="first_name" 
+                                   name="first_name" 
+                                   type="text" 
+                                   required 
+                                   class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                   placeholder="Имя">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="last_name" class="block text-sm font-medium text-gray-700">
+                            Фамилия
+                        </label>
+                        <div class="mt-1">
+                            <input id="last_name" 
+                                   name="last_name" 
+                                   type="text" 
+                                   required 
+                                   class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                   placeholder="Фамилия">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">
+                        Имя пользователя
+                    </label>
+                    <div class="mt-1">
+                        <input id="username" 
+                               name="username" 
+                               type="text" 
+                               required 
+                               class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                               placeholder="Имя пользователя">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">
+                        Email
+                    </label>
+                    <div class="mt-1">
+                        <input id="email" 
+                               name="email" 
+                               type="email" 
+                               required 
+                               class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                               placeholder="your@email.com">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">
+                        Пароль
+                    </label>
+                    <div class="mt-1">
+                        <input id="password" 
+                               name="password" 
+                               type="password" 
+                               required 
+                               class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                               placeholder="Минимум 8 символов">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password_confirm" class="block text-sm font-medium text-gray-700">
+                        Подтвердите пароль
+                    </label>
+                    <div class="mt-1">
+                        <input id="password_confirm" 
+                               name="password_confirm" 
+                               type="password" 
+                               required 
+                               class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                               placeholder="Повторите пароль">
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" 
+                            class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50">
+                        <span id="register-loading" class="htmx-indicator">
+                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </span>
+                        Зарегистрироваться
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,194 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Личный кабинет - Razgon{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Заголовок -->
+    <div class="md:flex md:items-center md:justify-between">
+        <div class="min-w-0 flex-1">
+            <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+                Добро пожаловать, {{ user.first_name }}!
+            </h2>
+            <p class="mt-1 text-sm text-gray-500">
+                Управляйте своими автомобилями и ведите учет расходов
+            </p>
+        </div>
+    </div>
+
+    <!-- Статистика -->
+    <div class="mt-8">
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
+            <!-- Карточка: Автомобили -->
+            <div class="overflow-hidden rounded-lg bg-white shadow">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="h-8 w-8 rounded-md bg-indigo-500 flex items-center justify-center">
+                                <span class="text-lg">🚗</span>
+                            </div>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Автомобили</dt>
+                                <dd class="text-lg font-medium text-gray-900">0</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-5 py-3">
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                            Управление автомобилями
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка: Заметки -->
+            <div class="overflow-hidden rounded-lg bg-white shadow">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="h-8 w-8 rounded-md bg-green-500 flex items-center justify-center">
+                                <span class="text-lg">📝</span>
+                            </div>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Заметки</dt>
+                                <dd class="text-lg font-medium text-gray-900">0</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-5 py-3">
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-green-600 hover:text-green-500">
+                            Все заметки
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка: Расходы -->
+            <div class="overflow-hidden rounded-lg bg-white shadow">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="h-8 w-8 rounded-md bg-yellow-500 flex items-center justify-center">
+                                <span class="text-lg">💰</span>
+                            </div>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Расходы за месяц</dt>
+                                <dd class="text-lg font-medium text-gray-900">0 ₽</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-5 py-3">
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-yellow-600 hover:text-yellow-500">
+                            Отчеты
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <!-- Профиль пользователя -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">
+                    Профиль пользователя
+                </h3>
+                
+                <div id="profile-content">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Имя</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ user.first_name }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Фамилия</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ user.last_name }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ user.email }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Имя пользователя</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ user.username }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Дата регистрации</label>
+                            <p class="mt-1 text-sm text-gray-900">{{ user.date_joined|date:"d.m.Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button hx-get="{% url 'profile' %}" 
+                            hx-target="#profile-content"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-600 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Редактировать профиль
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Быстрые действия -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">
+                    Быстрые действия
+                </h3>
+                
+                <div class="space-y-4">
+                    <button class="w-full flex items-center justify-center px-4 py-3 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <span class="mr-2">🚗</span>
+                        Добавить автомобиль
+                    </button>
+                    
+                    <button class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <span class="mr-2">📝</span>
+                        Добавить заметку
+                    </button>
+                    
+                    <button class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <span class="mr-2">⛽</span>
+                        Записать заправку
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Последние действия -->
+    <div class="mt-8">
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">
+                    Последние действия
+                </h3>
+                
+                <div class="text-center py-12">
+                    <div class="mx-auto h-12 w-12 text-gray-400">
+                        <span class="text-4xl">📋</span>
+                    </div>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">Пока нет записей</h3>
+                    <p class="mt-1 text-sm text-gray-500">
+                        Начните добавлять автомобили и заметки, чтобы увидеть историю здесь.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
